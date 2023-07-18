@@ -1,6 +1,6 @@
 //  main.c
 //          Showcases STM32F103-CMSIS-I2C-EEPROM-lib.c
-//            Version 1.0   7/18/2023   Updated comments and core files
+//          Version 1.0   7/18/2023   Updated comments and core files
 //
 //  Target Microcontroller: STM32F103 (Blue Pill)
 //  Mike Shegedin, 07/2023  Started
