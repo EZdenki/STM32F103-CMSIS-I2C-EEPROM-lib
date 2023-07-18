@@ -21,8 +21,8 @@
 //             .-------.          |    |     |
 //     ;--- A0 |1 o   8| VCC -----+   5.6k  5.6k
 //     |--- A1 |2     7| WP -- NC      |     |
-//     |--- A2 |3     6| SCL ----------+-----|----- Bluepill I2C SCL pin
-//     |-- GND |4     5| SDA ----------------+----- Bluepill I2C SDA pin 
+//     |--- A2 |3     6| SCL ----------+-----|----- Blue Pill I2C SCL pin
+//     |-- GND |4     5| SDA ----------------+----- Blue Pill I2C SDA pin 
 //     |       '-------' 
 //    _|_
 //    \-/
@@ -46,7 +46,7 @@
 I2C_TypeDef *EE24_I2C;    // Global variable to point to the I2C interface used for the EEPROM
 uint32_t EE24_BYTES;      // Global of the total number of bytes in this EEPROM
 uint32_t EE24_PAGESIZE;   // Maximum writable page size in bytes
-uint32_t EE24_ADD;        // EEPROM 7-bit address incluing any chip-select pins
+uint32_t EE24_ADD;        // EEPROM 7-bit address including any chip-select pins
 
 
 //  -------------------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ EE24_init( I2C_TypeDef *thisI2C, uint32_t deviceAdd, uint32_t bytes, uint32_t pa
   EE24_I2C      = thisI2C;    // Set the I2C interface used to talk to this EEPROM device
   EE24_ADD      = deviceAdd;  // Set the I2C address for this device (incl. chip-select pins)
   EE24_BYTES    = bytes;      // Set the number of bytes of storage for this device
-  EE24_PAGESIZE = pageSize;   // Set the maximim writable page size for this device
+  EE24_PAGESIZE = pageSize;   // Set the maximum writable page size for this device
 
   I2C_init( thisI2C );        // Init the I2C interface used for the EEPROM
 }
@@ -123,7 +123,7 @@ EE24_read( uint32_t address, uint8_t *data, uint32_t length)
 //  If "fill" = 0, then the data pointed to by *data will be written to the EEPROM.
 //  If "fill" = 1, then the value in data[0] will be used to fill the specified EEPROM area.
 //
-//  If the write operation would go beyond the memory boundry of the device, then the
+//  If the write operation would go beyond the memory boundary of the device, then the
 //  routine will exit and return a 1 (error), and no data will be written to the device.
 //  No other error checking is performed.
 //
@@ -206,7 +206,7 @@ EE24_write( uint32_t address, uint8_t *data, uint32_t length, uint32_t fill)
 //
 //  address: The starting address and length is the number of bytes to display.
 //   length: The number of bytes to read from the specified address. Data will be displayed
-//           on 0x20 boundries such that the first and last bytes are shown.
+//           on 0x20 boundaries such that the first and last bytes are shown.
 //  Data is displayed in hex and in ASCII. ASCII data will only show printable 7-bit ASCII
 //  codes. Non-printable ASCII codes will be shown as a period (.). The routine attempts to
 //  make sane adjustments to address and length parameters if they would go beyond the maximum
@@ -223,7 +223,7 @@ EE24_dump( uint32_t address, uint32_t length )
   if( address + length -1 >= EE24_BYTES ) // If length goes beyond max, then set it to end 
     length = EE24_BYTES - address;        // at the last address.
 
-  // Compute starting and ending addresses to fall on 0x0 and 0xF boundries respectively.
+  // Compute starting and ending addresses to fall on 0x0 and 0xF boundaries respectively.
   startAddress = ( address >> 4 ) << 4;
   endAddress   = ( ( address + length -1 ) | 0xF );
 
