@@ -179,7 +179,7 @@ EE24_write( uint32_t address, uint8_t *data, uint32_t length, uint32_t fill)
         I2C_write( EE24_I2C, data[0] );       // Write data[0] as fill value for this page
         bytesWritten++;
       }
-    else                                    // Do write using data in data[]
+    else                                      // Do write using data in data[]
       for( int32_t x = pageStartAddress; x<= pageEndAddress; x++ )
       {
         I2C_write( EE24_I2C, data[bytesWritten] );  // Write data[] for this page
