@@ -1,9 +1,13 @@
 //  main.c
 //        Showcases STM32F103-CMSIS-I2C-EEPROM-lib.c
-//        Version 1.0   7/18/2023   Updated comments and core files
+//        Mike Shegedin (EZdenki.com)
+//
+//        Version 1.1    9 Aug 2023   Updated I2C and Delay libraries. Added baudrate parameter
+//                                    to USART_init routine
+//        Version 1.0   18 Jul 2023   Updated comments and core files
+//        Started          Jul 2023
 //
 //  Target Microcontroller: STM32F103 (Blue Pill)
-//  Mike Shegedin, 07/2023  Started
 //
 //  Goals:  Implement an EEPROM memory monitor that allows reading and writing of data
 //          to an I2C EEPROM device.
@@ -46,9 +50,9 @@
 //     |       '-------' 
 //     '------------------------+------------------------ GND
 //                              |
-//         Serial Dongle GND ---'                       USART1 or USART2 or USART3
-//         Serial Dongle Rx ----------------------------- A9        A2       B10 
-//         Serial Dongle Tx ----------------------------- A10       A3       B11
+//         Serial Dongle GND ---'                         USART1 or USART2  or USART3
+//         Serial Dongle Rx ----------------------------- A9(5V)   A2(3.3V)    B10(5V)
+//         Serial Dongle Tx ----------------------------- A10(5V)  A3(3.3V)    B11(5V)
 //
 // ===========================================================================================
 
@@ -77,7 +81,7 @@ main()
   char     myStr[ STRLEN + 1 ]; // Command from serial input (minus any numerical input)
 
   
-  USART_init( USART1 );         // Init USART1 and associate with USART routines
+  USART_init( USART2, 460800);         // Init USART1 and associate with USART routines
   USART_puts("UART Connected!");
 
 
@@ -86,9 +90,13 @@ main()
 // ===============================================================  
 
   
-  EE24_init( I2C1, 0x50, 0x2000, 32 );            // Init I2C port for this EEPROM device
+  EE24_init( I2C2, 100e3, 0x50, 0x2000, 32 );     // Init I2C port for this EEPROM device
+                                                  // Note: May fail at I2C speeds below
+                                                  // 2 kHz due to conflict with high USART
+                                                  // speeds.
   USART_puts( "\n\n\nEEPROM Monitor\n" );         // Display title
     length = endAdd - startAdd + 1;               // Initialize length parameter
+ 
   EE24_dump( startAdd, length );                  // Dump this area of the EEPROM
   
   while( 1 )                                      // Main Loop
