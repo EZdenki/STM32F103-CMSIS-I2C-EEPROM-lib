@@ -1,12 +1,12 @@
 //  STM32F103-CMSIS-I2C-EEPROM-lib.c
+//    Routines to write/fill and read data on the 24CL64 I2C EEPROM IC.
+//    Mike Shegedin (EZdenki.com)
+//
 //        Version 1.1    9 Aug 2023   Updated I2C and Delay libraries
 //        Version 1.0   18 Jul 2023   Updated comments and core files
-//        Started       Jul 2023
+//        Started          Jul 2023
 //
 //  Target Microcontroller: STM32F103 (Blue Pill)
-//  Mike Shegedin, 06/2023  Started
-//
-//  Routines to write/fill and read data on the 24CL64 I2C EEPROM IC.
 //
 //  Target devices:
 //    EEPROM: 24CL64 I2C EEPROM
