@@ -81,7 +81,7 @@ main()
   char     myStr[ STRLEN + 1 ]; // Command from serial input (minus any numerical input)
 
   
-  USART_init( USART2, 115200 );         // Init USART1 and associate with USART routines
+  USART_init( USART1, 115200 );         // Init USART1 and associate with USART routines
   USART_puts( "UART Connected!" );
 
 
